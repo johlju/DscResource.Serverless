@@ -1,0 +1,7 @@
+{
+    "repository": {
+        "private": false,
+        "name": "DebugApps"
+    },
+    "action": "opened"
+}
