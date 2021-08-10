@@ -15,11 +15,13 @@
 # Deploy to 'labopscalyx2 in the existing function hostname.
 #
 # Azure Functions PowerShell developer guide: https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-powershell?tabs=portal
+# Azure Functions HTTP trigger: https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=powershell#example
 # TODO: Fix OAuth to send request to GitHub: https://docs.github.com/en/developers/apps/building-oauth-apps
 # TODO: Use secret to encrypt (?) trigger from GitHub https://4bes.nl/2021/04/04/create-a-secure-github-webhook-to-trigger-an-azure-powershell-function/
 # TODO: Use a Storage queue to send the trigger to the function: https://docs.microsoft.com/en-us/azure/azure-functions/functions-add-output-binding-storage-queue-vs-code?pivots=programming-language-powershell
 # TODO: Connect to other services: https://docs.microsoft.com/en-us/azure/azure-functions/add-bindings-existing-function?tabs=powershell
-
+# TODO: Read up on durable function: https://docs.microsoft.com/en-us/azure/azure-functions/durable/quickstart-powershell-vscode
+# TODO: Fix auto deploy: https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-powershell?tabs=azure-cli%2Cbrowser
 <#
     .SYNOPSIS
         Triggers the function hostname.
