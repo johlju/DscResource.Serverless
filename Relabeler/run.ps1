@@ -32,6 +32,9 @@
 
     .PARAMETER TriggerMetadata
         The metadata object of type [System.Collections.Hashtable].
+
+    .OUTPUTS
+        [Microsoft.Azure.Functions.PowerShellWorker.HttpRequestContext]
 #>
 using namespace System.Net
 
@@ -40,6 +43,8 @@ param($Request, $TriggerMetadata)
 
 # Write to the Azure Functions log stream.
 Write-Host -Object "PowerShell HTTP trigger function processed a request."
+
+$body = $null
 
 # Interact with query parameters or the body of the request (just used to test connectivity of the Azure Function).
 $debugFunction = $Request.Query.DebugFunction
