@@ -15,4 +15,4 @@ to a browser. Token is found in Azure portal. Make sure to replace any chars in 
 that are not allowed in an URL, like = or \ should be replaced with %3D or %2F respectively).
 https://<hostname>.azurewebsites.net/api/relabeler?code=<token>&DebugFunction=true
 
-Deploy to RG 'labopscalyx2 in the existing function Relabeler.
+Deploy to RG 'labopscalyx2 in the existing function hostname.

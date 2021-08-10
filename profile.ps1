@@ -20,3 +20,7 @@ if ($env:MSI_SECRET) {
 # Enable-AzureRmAlias
 
 # You can also define functions or aliases that can be referenced in any of your PowerShell functions.
+foreach ($scriptFile in @(Get-ChildItem -Path "$PSScriptRoot/private" -Recurse -Include '*.ps1' -ErrorAction 'Stop'))
+{
+    . $scriptFile
+}

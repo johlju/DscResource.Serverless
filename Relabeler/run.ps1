@@ -12,11 +12,27 @@
 # that are not allowed in an URL, like = or \ should be replaced with %3D or %2F respectively).
 # https://<hostname>.azurewebsites.net/api/relabeler?code=<token>&DebugFunction=johan
 #
-# Deploy to 'labopscalyx2 in the existing function Relabeler.
+# Deploy to 'labopscalyx2 in the existing function hostname.
 #
+# Azure Functions PowerShell developer guide: https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-powershell?tabs=portal
 # TODO: Fix OAuth to send request to GitHub: https://docs.github.com/en/developers/apps/building-oauth-apps
 # TODO: Use secret to encrypt (?) trigger from GitHub https://4bes.nl/2021/04/04/create-a-secure-github-webhook-to-trigger-an-azure-powershell-function/
+# TODO: Use a Storage queue to send the trigger to the function: https://docs.microsoft.com/en-us/azure/azure-functions/functions-add-output-binding-storage-queue-vs-code?pivots=programming-language-powershell
+# TODO: Connect to other services: https://docs.microsoft.com/en-us/azure/azure-functions/add-bindings-existing-function?tabs=powershell
 
+<#
+    .SYNOPSIS
+        Triggers the function hostname.
+
+    .DESCRIPTION
+        This function is triggered by a GitHub webhook.
+
+    .PARAMETER Request
+        The request object of type [Microsoft.Azure.Functions.PowerShellWorker.HttpRequestContext].
+
+    .PARAMETER TriggerMetadata
+        The metadata object of type [System.Collections.Hashtable].
+#>
 using namespace System.Net
 
 # Input bindings are passed in via param block.
@@ -34,11 +50,18 @@ if ($debugFunction)
 }
 else
 {
-    Write-Host -Object ("Request:`r`n{0}" -f ($Request | ConvertTo-Json))
+    switch ($Request.Headers.'x-github-event')
+    {
+        'issues'
+        {
+            Invoke-ProcessIssue -Request $Request
+        }
 
-    Write-Host -Object ('Action Type: {0}' -f $Request.Body.action)
-    Write-Host -Object ('Repository Name: {0}' -f $Request.Body.repository.name)
-    Write-Host -Object ("Private Repository: {0}" -f $Request.Body.repository.private)
+        default
+        {
+            Write-UnknownPayload -Request $Request
+        }
+    }
 }
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
